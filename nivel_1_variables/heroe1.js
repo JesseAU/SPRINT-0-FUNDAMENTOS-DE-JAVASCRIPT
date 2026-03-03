@@ -3,7 +3,7 @@
 
 let nombreHeroe = "Batman";
 let poder = "Inteligencia y Gadgets";
-let nivelEnergia = 100;
+let nivelEnergia = 60; // Estudiante B: Batman tuvo una pelea difícil, su energía bajó a 60.
 let ciudad = "Gotham City";
 let enemigo = "The Joker";
 
