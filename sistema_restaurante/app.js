@@ -7,10 +7,10 @@ let menu = [
     { nombre: "Ají de Gallina", precio: 15, stock: 4 }
 ];
 
-// Muestra el menú en la página
+// Muestra el menú completo en la página
 function renderMenu() {
     const output = document.getElementById("output");
-    output.innerHTML = ""; // Limpiamos antes de mostrar
+    output.innerHTML = "";
 
     let html = "<ul>";
     for (let i = 0; i < menu.length; i++) {
@@ -19,12 +19,69 @@ function renderMenu() {
     }
     html += "</ul>";
 
-    // Agregamos el contador total al final
     html += `<p><strong>${contarPlatos()}</strong></p>`;
     output.innerHTML = html;
 }
 
-// Agregamos un plato extra para probar el sistema
+// Función reutilizable para mostrar cualquier lista de textos (Day 4)
+function renderLista(titulo, listaDeTextos) {
+    const output = document.getElementById("output");
+    output.innerHTML = `<h3>${titulo}</h3>`;
+
+    if (listaDeTextos.length === 0) {
+        output.innerHTML += "<p>No se encontraron resultados.</p>";
+        return;
+    }
+
+    let html = "<ul>";
+    listaDeTextos.forEach(texto => {
+        html += `<li>${texto}</li>`;
+    });
+    html += "</ul>";
+    output.innerHTML += html;
+}
+
+// Buscar plato por nombre usando .find() (Day 4)
+function buscarPlatoPorNombre(nombre) {
+    const encontrado = menu.find(plato => plato.nombre.toLowerCase() === nombre.toLowerCase());
+    if (encontrado) {
+        renderLista("Resultado de búsqueda", [`${encontrado.nombre} — S/ ${encontrado.precio} (Stock: ${encontrado.stock})`]);
+    } else {
+        document.getElementById("output").innerHTML = "<h3>No encontrado</h3>";
+    }
+}
+
+// Filtrar platos con poco stock usando .filter() (Day 4)
+function filtrarStockBajo() {
+    const bajos = menu.filter(plato => plato.stock <= 3);
+    const textos = bajos.map(plato => `${plato.nombre} — Stock: ${plato.stock}`);
+    renderLista("Platos con Stock Bajo", textos);
+}
+
+// Resumen rápido del menú usando .map() (Day 4)
+function obtenerResumenMenu() {
+    const resumen = menu.map(plato => `${plato.nombre} — S/ ${plato.precio}`);
+    renderLista("Resumen del Menú", resumen);
+}
+
+// Lógica de venta con validación de stock (Day 4)
+function venderPlato(nombre) {
+    const plato = menu.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
+
+    if (!plato) {
+        alert("El plato no existe en el menú.");
+        return;
+    }
+
+    if (plato.stock > 0) {
+        plato.stock--;
+        alert(`¡Venta realizada! Ahora quedan ${plato.stock} de ${plato.nombre}.`);
+        renderMenu();
+    } else {
+        alert("¡Stock insuficiente!");
+    }
+}
+
 function agregarPlatoDemo() {
     const nuevoPlato = {
         nombre: "Tacu Tacu con Sábana",
@@ -32,18 +89,21 @@ function agregarPlatoDemo() {
         stock: 6
     };
     menu.push(nuevoPlato);
+    renderMenu();
 }
 
 function contarPlatos() {
     return `Tenemos ${menu.length} platos disponibles hoy.`;
 }
 
-// Conexión con los botones del HTML
-document.getElementById("btnMostrar").addEventListener("click", () => {
-    renderMenu();
+// Eventos de los botones
+document.getElementById("btnMostrar").addEventListener("click", () => renderMenu());
+document.getElementById("btnAgregar").addEventListener("click", () => agregarPlatoDemo());
+
+document.getElementById("btnBuscar").addEventListener("click", () => {
+    const nombre = document.getElementById("inputBuscar").value;
+    buscarPlatoPorNombre(nombre);
 });
 
-document.getElementById("btnAgregar").addEventListener("click", () => {
-    agregarPlatoDemo();
-    renderMenu();
-});
+document.getElementById("btnStockBajo").addEventListener("click", () => filtrarStockBajo());
+document.getElementById("btnResumen").addEventListener("click", () => obtenerResumenMenu());
