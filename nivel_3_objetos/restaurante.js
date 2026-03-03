@@ -1,6 +1,4 @@
-// Simulador de Restaurante
-// Colaboración: Estudiante A y Estudiante B
-
+// Simulación rápida de un cliente en el restaurante
 let cliente = {
     nombre: "Carlos",
     dinero: 100,
@@ -20,16 +18,16 @@ function ordenarComida(unCliente, unPlato) {
         unCliente.hambre -= unPlato.nivelDeSaciedad;
         if (unCliente.hambre < 0) unCliente.hambre = 0;
     } else {
-        console.log(`${unCliente.nombre} no tiene suficiente dinero para ${unPlato.nombre}.`);
+        console.log(`${unCliente.nombre} no tiene suficiente dinero.`);
     }
 }
 
 function pagar(unCliente) {
-    console.log(`Gracias por su visita, ${unCliente.nombre}. Le quedan S/ ${unCliente.dinero}.`);
+    console.log(`¡Gracias por venir, ${unCliente.nombre}! Cambio: S/ ${unCliente.dinero}.`);
 }
 
 function mostrarEstado(unCliente) {
-    console.log(`Estado de ${unCliente.nombre}: Hambre: ${unCliente.hambre}, Dinero: S/ ${unCliente.dinero}.`);
+    console.log(`Estado actual -> Hambre: ${unCliente.hambre}, Billetera: S/ ${unCliente.dinero}.`);
 }
 
 console.log("--- BIENVENIDO AL RESTAURANTE ---");

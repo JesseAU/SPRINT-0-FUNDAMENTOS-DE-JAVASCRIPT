@@ -1,9 +1,7 @@
-// Heroe: Batman
-// Creado por: Estudiante A
-
+// Mi versión de Batman
 let nombreHeroe = "Batman";
 let poder = "Inteligencia y Gadgets";
-let nivelEnergia = 60; // Estudiante B: Batman tuvo una pelea difícil, su energía bajó a 60.
+let nivelEnergia = 60; // Bajó un poco después de la última pelea
 let ciudad = "Gotham City";
 let enemigo = "The Joker";
 

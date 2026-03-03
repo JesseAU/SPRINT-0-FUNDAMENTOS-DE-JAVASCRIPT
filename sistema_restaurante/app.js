@@ -1,35 +1,30 @@
-// 1) VARIABLES + OBJETOS + ARRAYS
+// Gestión del menú del restaurante
 let menu = [
     { nombre: "Arroz con pollo", precio: 12, stock: 5 },
     { nombre: "Lomo saltado", precio: 18, stock: 3 },
     { nombre: "Sopa", precio: 8, stock: 10 },
-    { nombre: "Ceviche Mixto", precio: 25, stock: 7 }, // Plato real 1 (Estudiante A)
-    { nombre: "Ají de Gallina", precio: 15, stock: 4 }  // Plato real 2 (Estudiante A)
+    { nombre: "Ceviche Mixto", precio: 25, stock: 7 },
+    { nombre: "Ají de Gallina", precio: 15, stock: 4 }
 ];
 
-// 2) FUNCIÓN: renderizar (mostrar) el menú en pantalla
+// Muestra el menú en la página
 function renderMenu() {
     const output = document.getElementById("output");
-    output.innerHTML = ""; // limpiar
+    output.innerHTML = ""; // Limpiamos antes de mostrar
 
-    // crear una lista HTML simple
     let html = "<ul>";
-
     for (let i = 0; i < menu.length; i++) {
         const plato = menu[i];
         html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
     }
-
     html += "</ul>";
 
-    // Tarea 3: Función extra obligatoria integrada en renderMenu o llamada aparte
+    // Agregamos el contador total al final
     html += `<p><strong>${contarPlatos()}</strong></p>`;
-
     output.innerHTML = html;
 }
 
-// 3) FUNCIÓN: agregar un plato demo al menú
-// Tarea 2: Modificar para que agregue un plato distinto (Estudiante B)
+// Agregamos un plato extra para probar el sistema
 function agregarPlatoDemo() {
     const nuevoPlato = {
         nombre: "Tacu Tacu con Sábana",
@@ -39,12 +34,11 @@ function agregarPlatoDemo() {
     menu.push(nuevoPlato);
 }
 
-// Tarea 3: Función contarPlatos (Estudiante A)
 function contarPlatos() {
-    return `Total de platos en el menú: ${menu.length}`;
+    return `Tenemos ${menu.length} platos disponibles hoy.`;
 }
 
-// 4) EVENTOS: conectar botones con funciones (Estudiante B)
+// Conexión con los botones del HTML
 document.getElementById("btnMostrar").addEventListener("click", () => {
     renderMenu();
 });

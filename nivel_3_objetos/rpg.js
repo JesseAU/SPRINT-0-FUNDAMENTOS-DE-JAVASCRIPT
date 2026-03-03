@@ -1,6 +1,4 @@
-// Videojuego Mini RPG
-// Colaboración: Estudiante A y Estudiante B
-
+// Mini RPG para probar objetos
 let jugador1 = {
     nombre: "Guerrero Feroz",
     vida: 100,
@@ -18,29 +16,22 @@ let jugador2 = {
 function entrenar(jugador) {
     jugador.fuerza += 10;
     jugador.nivel += 1;
-    console.log(`${jugador.nombre} ha entrenado. Ahora es nivel ${jugador.nivel} con fuerza ${jugador.fuerza}.`);
+    console.log(`${jugador.nombre} entrenó duro. Nivel: ${jugador.nivel}.`);
 }
 
 function recibirDaño(jugador, daño) {
     jugador.vida -= daño;
     if (jugador.vida < 0) jugador.vida = 0;
-    console.log(`${jugador.nombre} recibió ${daño} de daño. Vida restante: ${jugador.vida}.`);
+    console.log(`${jugador.nombre} recibió un golpe! Vida: ${jugador.vida}.`);
 }
 
 function curar(jugador) {
     jugador.vida += 20;
     if (jugador.vida > 100) jugador.vida = 100;
-    console.log(`${jugador.nombre} se ha curado. Vida actual: ${jugador.vida}.`);
+    console.log(`${jugador.nombre} se siente mejor. Vida: ${jugador.vida}.`);
 }
 
-console.log("--- INICIO DEL MINI RPG ---");
-console.log(jugador1);
-console.log(jugador2);
-
+console.log("--- RPG MODE ---");
 entrenar(jugador1);
 recibirDaño(jugador2, jugador1.fuerza);
 curar(jugador2);
-
-console.log("--- ESTADO ACTUALIZADO ---");
-console.log(jugador1);
-console.log(jugador2);
