@@ -15,7 +15,20 @@ function renderMenu() {
     let html = "<ul>";
     for (let i = 0; i < menu.length; i++) {
         const plato = menu[i];
-        html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
+
+        // Reglas de Estado del Día 5
+        let clase = "normal";
+        let textoExtra = "";
+
+        if (plato.stock === 0) {
+            clase = "agotado";
+            textoExtra = " - AGOTADO";
+        } else if (plato.stock <= 3) {
+            clase = "bajo";
+            textoExtra = " - Stock bajo";
+        }
+
+        html += `<li class="${clase}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}${textoExtra}</li>`;
     }
     html += "</ul>";
 
