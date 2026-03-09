@@ -4,7 +4,9 @@ let menu = [
     { nombre: "Lomo saltado", precio: 18, stock: 3 },
     { nombre: "Sopa", precio: 8, stock: 10 },
     { nombre: "Ceviche Mixto", precio: 25, stock: 7 },
-    { nombre: "Ají de Gallina", precio: 15, stock: 4 }
+    { nombre: "Ají de Gallina", precio: 15, stock: 4 },
+    { nombre: "Papa a la Huancaína", precio: 10, stock: 2 }, // Demo Stock Bajo (Naranja)
+    { nombre: "Pachamanca", precio: 30, stock: 0 }           // Demo Agotado (Rojo)
 ];
 
 // Muestra el menú completo en la página
@@ -23,7 +25,7 @@ function renderMenu() {
         if (plato.stock === 0) {
             clase = "agotado";
             textoExtra = " - AGOTADO";
-        } else if (plato.stock <= 4) { // Cambiado a <= 4 para englobar el stock de "Ají de Gallina"
+        } else if (plato.stock <= 3) {
             clase = "bajo";
             textoExtra = " - Stock bajo";
         }
