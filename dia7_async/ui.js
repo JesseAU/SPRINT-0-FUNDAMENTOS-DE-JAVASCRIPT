@@ -3,7 +3,7 @@ import {
     buscarPlatoPorNombre,
     filtrarStockBajo,
     obtenerResumenMenu,
-    venderPlato,
+    venderPlatoAsync,
     calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
@@ -53,9 +53,9 @@ export function renderLista(titulo, listaDeTextos) {
     output.innerHTML += html;
 }
 
-export function mostrarMensaje(texto) {
+export function mostrarMensaje(texto, claseCss = "") {
     const output = document.getElementById("output");
-    output.innerHTML = `<p>${texto}</p>`;
+    output.innerHTML = `<p class="${claseCss}">${texto}</p>`;
 }
 
 // Eventos de los botones
@@ -111,11 +111,21 @@ export function conectarEventos() {
         alert(mensaje);
     };
 
-    window.venderPlato = (nombre) => {
-        const resultado = venderPlato(nombre);
-        alert(resultado.mensaje);
-        if (resultado.ok) {
+    // Venta asincrónica (Day 7)
+    window.venderPlatoAsync = async (nombre) => {
+        try {
+            // Estado 1: Procesando (azul)
+            mostrarMensaje(`Procesando pedido de: ${nombre}...`, "procesando");
+
+            // Estado 2: Espera la respuesta del servidor simulado
+            const mensajeExito = await venderPlatoAsync(nombre);
+
+            // Estado 3a: Éxito (verde)
+            mostrarMensaje(mensajeExito, "exito");
             renderMenu();
+        } catch (error) {
+            // Estado 3b: Error atrapado (rojo)
+            mostrarMensaje(`❌ Error: ${error.message}`, "error");
         }
     };
 }
