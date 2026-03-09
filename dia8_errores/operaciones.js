@@ -1,4 +1,5 @@
 import { menu } from "./menu.js";
+import { ValidationError, NetworkError, StockError } from "./errores.js";
 
 // Buscar plato por nombre usando .find() (Day 4/6)
 export function buscarPlatoPorNombre(nombre) {
@@ -21,16 +22,16 @@ export function obtenerResumenMenu() {
     });
 }
 
-// Lógica de venta con validación estricta de stock (Day 5/6)
+// Lógica de venta con validación estricta de stock (Day 5/6/8)
 export function venderPlato(nombre) {
     const plato = buscarPlatoPorNombre(nombre);
 
     if (!plato) {
-        return { ok: false, mensaje: "El plato no existe en el menú." };
+        return { ok: false, errorType: "Validation", mensaje: "El plato no existe en el menú." };
     }
 
     if (plato.stock === 0) {
-        return { ok: false, mensaje: `No disponible. ${plato.nombre} está agotado.` };
+        return { ok: false, errorType: "Stock", mensaje: `No disponible. ${plato.nombre} está agotado.` };
     }
 
     if (plato.stock > 0) {
@@ -68,31 +69,28 @@ export function verificarEstadoGeneral() {
     }
 }
 
-// Simulación de latencia y error de red (Day 7)
+// Simulación de latencia y error de red (Day 7/8)
 export function simularRespuestaServidor(resultado) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const falla = Math.random() < 0.3;
             if (falla) {
-                reject(new Error("Error del servidor simulado. Intente de nuevo."));
+                reject(new NetworkError("Error de conexión con el restaurante."));
             } else {
                 resolve(resultado);
             }
-        }, 2000); // 2 segundos de espera
+        }, 2000);
     });
 }
 
-// Venta asincrónica usando await (Day 7)
+// Venta asincrónica usando await y Errores Estructurados (Day 7/8)
 export async function venderPlatoAsync(nombre) {
-    // 1. Validaciones sincrónicas previas
     const resultado = venderPlato(nombre);
 
     if (!resultado.ok) {
-        // Lanza un error inmediato si falla la lógica de negocio básica
-        throw new Error(resultado.mensaje);
+        if (resultado.errorType === "Stock") throw new StockError(resultado.mensaje);
+        throw new ValidationError(resultado.mensaje);
     }
 
-    // 2. Espera la confirmación del "servidor"
-    const respuesta = await simularRespuestaServidor(resultado.mensaje);
-    return respuesta;
+    return await simularRespuestaServidor(resultado.mensaje);
 }

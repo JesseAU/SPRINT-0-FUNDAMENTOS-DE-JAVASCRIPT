@@ -1,12 +1,11 @@
 import { menu, agregarPlato } from "./menu.js";
-import {
-    buscarPlatoPorNombre,
-    filtrarStockBajo,
+filtrarStockBajo,
     obtenerResumenMenu,
     venderPlatoAsync,
     calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
+import { StockError, NetworkError, ValidationError } from "./errores.js";
 
 // Muestra el menú completo en la página
 export function renderMenu() {
@@ -117,21 +116,29 @@ export function conectarEventos() {
         alert(mensaje);
     };
 
-    // Venta asincrónica (Day 7)
+    // Venta asincrónica (Day 7/8)
     window.venderPlatoAsync = async (nombre) => {
         try {
-            // Estado 1: Procesando (azul)
-            mostrarMensaje(`Procesando pedido de: ${nombre}...`, "procesando");
+            // Estado 1: Procesando
+            mostrarMensaje(`🔄 Procesando pedido: ${nombre}. Por favor, espere...`, "procesando");
 
-            // Estado 2: Espera la respuesta del servidor simulado
+            // Estado 2: Espera
             const mensajeExito = await venderPlatoAsync(nombre);
 
-            // Estado 3a: Éxito (verde)
-            mostrarMensaje(mensajeExito, "exito");
+            // Estado 3a: Éxito
+            mostrarMensaje(`✅ ${mensajeExito}`, "exito");
             renderMenu();
         } catch (error) {
-            // Estado 3b: Error atrapado (rojo)
-            mostrarMensaje(`❌ Error: ${error.message}`, "error");
+            // Manejo estructurado de errores (Día 8)
+            if (error instanceof StockError) {
+                mostrarMensaje(`⚠️ Error de Producto: ${error.message}`, "error-validacion");
+            } else if (error instanceof NetworkError) {
+                mostrarMensaje(`📡 Error de Conexión: ${error.message} (Reintente más tarde)`, "error-red");
+            } else if (error instanceof ValidationError) {
+                mostrarMensaje(`🚫 Error de Validación: ${error.message}`, "error-validacion");
+            } else {
+                mostrarMensaje(`🔥 Error Inesperado: ${error.message}`, "error");
+            }
         }
     };
 }
