@@ -1,5 +1,7 @@
 import { menu, agregarPlato } from "./menu.js";
-filtrarStockBajo,
+import {
+    buscarPlatoPorNombre,
+    filtrarStockBajo,
     obtenerResumenMenu,
     venderPlatoAsync,
     calcularEstadoPlato,
@@ -12,7 +14,7 @@ export function renderMenu() {
     const output = document.getElementById("output");
     output.innerHTML = "";
 
-    let html = "<ul>";
+    let html = '<ul class="menu-list">';
     for (let i = 0; i < menu.length; i++) {
         const plato = menu[i];
 
@@ -28,15 +30,23 @@ export function renderMenu() {
 
         let botonVender = "";
         if (clase !== "agotado") {
-            // Se le agrega un margen para que no esté pegado al texto
-            botonVender = ` <button style="margin-left: 10px;" onclick="venderPlatoAsync('${plato.nombre}')">Vender asíncrono</button>`;
+            botonVender = `<button onclick="venderPlatoAsync('${plato.nombre}')">Pedir</button>`;
         }
 
-        html += `<li class="${clase}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}${textoExtra}${botonVender}</li>`;
+        html += `
+            <li class="${clase}">
+                <div>
+                    <strong>${plato.nombre}</strong><br>
+                    <small>S/ ${plato.precio} — Stock: ${plato.stock}${textoExtra}</small>
+                </div>
+                ${botonVender}
+            </li>`;
     }
     html += "</ul>";
 
-    html += `<p><strong>Tenemos ${menu.length} platos disponibles hoy.</strong></p>`;
+    html += `<p style="text-align: center; margin-top: 20px; font-weight: 600; color: #64748b;">
+                Contamos con ${menu.length} platos de alta cocina para usted.
+             </p>`;
     output.innerHTML = html;
 }
 
@@ -60,7 +70,8 @@ export function renderLista(titulo, listaDeTextos) {
 
 export function mostrarMensaje(texto, claseCss = "") {
     const output = document.getElementById("output");
-    output.innerHTML = `<p class="${claseCss}">${texto}</p>`;
+    // Usamos el status-box para que se vea premium
+    output.innerHTML = `<div class="status-box ${claseCss}">${texto}</div>`;
 }
 
 // Eventos de los botones
