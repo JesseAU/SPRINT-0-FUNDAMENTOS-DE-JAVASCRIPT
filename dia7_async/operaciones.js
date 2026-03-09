@@ -67,3 +67,32 @@ export function verificarEstadoGeneral() {
         return "Todo disponible. El menú está en estado óptimo.";
     }
 }
+
+// Simulación de latencia y error de red (Day 7)
+export function simularRespuestaServidor(resultado) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const falla = Math.random() < 0.3;
+            if (falla) {
+                reject(new Error("Error del servidor simulado. Intente de nuevo."));
+            } else {
+                resolve(resultado);
+            }
+        }, 2000); // 2 segundos de espera
+    });
+}
+
+// Venta asincrónica usando await (Day 7)
+export async function venderPlatoAsync(nombre) {
+    // 1. Validaciones sincrónicas previas
+    const resultado = venderPlato(nombre);
+
+    if (!resultado.ok) {
+        // Lanza un error inmediato si falla la lógica de negocio básica
+        throw new Error(resultado.mensaje);
+    }
+
+    // 2. Espera la confirmación del "servidor"
+    const respuesta = await simularRespuestaServidor(resultado.mensaje);
+    return respuesta;
+}
