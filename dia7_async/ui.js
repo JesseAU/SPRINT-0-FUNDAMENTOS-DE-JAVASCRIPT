@@ -27,7 +27,13 @@ export function renderMenu() {
             textoExtra = " - Stock bajo";
         }
 
-        html += `<li class="${clase}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}${textoExtra}</li>`;
+        let botonVender = "";
+        if (clase !== "agotado") {
+            // Se le agrega un margen para que no esté pegado al texto
+            botonVender = ` <button style="margin-left: 10px;" onclick="venderPlatoAsync('${plato.nombre}')">Vender asíncrono</button>`;
+        }
+
+        html += `<li class="${clase}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}${textoExtra}${botonVender}</li>`;
     }
     html += "</ul>";
 
