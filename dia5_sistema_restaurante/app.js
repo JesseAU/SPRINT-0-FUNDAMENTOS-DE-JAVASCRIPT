@@ -23,7 +23,7 @@ function renderMenu() {
         if (plato.stock === 0) {
             clase = "agotado";
             textoExtra = " - AGOTADO";
-        } else if (plato.stock <= 3) {
+        } else if (plato.stock <= 4) { // Cambiado a <= 4 para englobar el stock de "Ají de Gallina"
             clase = "bajo";
             textoExtra = " - Stock bajo";
         }
