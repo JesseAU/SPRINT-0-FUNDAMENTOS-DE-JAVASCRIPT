@@ -71,9 +71,15 @@ function filtrarStockBajo() {
     renderLista("Platos con Stock Bajo", textos);
 }
 
-// Resumen rápido del menú usando .map() (Day 4)
+// Resumen rápido del menú usando .map() (Day 4/5)
 function obtenerResumenMenu() {
-    const resumen = menu.map(plato => `${plato.nombre} — S/ ${plato.precio}`);
+    const resumen = menu.map(plato => {
+        let clase = "normal";
+        if (plato.stock === 0) clase = "agotado";
+        else if (plato.stock <= 3) clase = "bajo";
+
+        return `<span class="${clase}">${plato.nombre} — S/ ${plato.precio}</span>`;
+    });
     renderLista("Resumen del Menú", resumen);
 }
 
