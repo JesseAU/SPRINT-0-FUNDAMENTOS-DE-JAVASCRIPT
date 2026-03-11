@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Restaurante El Antigravedad — Día 7 (Async)</title>
+    <style>
+        .normal {
+            color: black;
+        }
+
+        .bajo {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .agotado {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Estados de feedback (Día 7) */
+        .procesando {
+            color: blue;
+            font-style: italic;
+        }
+
+        .exito {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-style: bold;
+            text-decoration: underline;
+        }
+    </style>
+    <script type="module" src="./main.js"></script>
+</head>
+
+<body>
+    <h1>Menú del Restaurante</h1>
+
+    <button id="btnMostrar">Mostrar menú</button>
+    <button id="btnAgregar">Agregar plato demo</button>
+
+    <hr>
+    <h2>Herramientas</h2>
+
+    <input id="inputBuscar" placeholder="Buscar plato por nombre" />
+    <button id="btnBuscar">Buscar</button>
+
+    <button id="btnStockBajo">Ver stock bajo (<= 3)</button>
+
+            <button id="btnResumen">Ver resumen</button>
+
+            <hr>
+            <h2>Vender Plato (Simulación Async)</h2>
+            <div>
+                <input id="inputVenderNombre" placeholder="Nombre del plato" />
+                <input id="inputVenderCantidad" type="number" placeholder="Cant." style="width: 50px;" value="1" />
+                <button id="btnVender">Vender (Async)</button>
+            </div>
+
+            <div id="output"></div>
+
+
+</body>
+
+</html>
