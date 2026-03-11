@@ -1,4 +1,4 @@
-import { menu } from "./menu.js";
+
 import {
     buscarPlatoPorNombre,
     filtrarStockBajo,
