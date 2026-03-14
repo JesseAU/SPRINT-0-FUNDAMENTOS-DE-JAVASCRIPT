@@ -5,20 +5,18 @@ import {
     obtenerResumenMenu,
     calcularEstadoPlato,
     verificarEstadoGeneral,
-    ErrorNegocio,
-    venderPlatoAsync
+    venderPlatoAsync,
+    ErrorNegocio
 } from "./operaciones.js";
 
-export function renderMenu() {
+function renderMenu() {
     const output = document.getElementById("output");
     let html = "<h3>Menú</h3><ul>";
 
     for (let i = 0; i < menu.length; i++) {
         const plato = menu[i];
         const estado = calcularEstadoPlato(plato);
-        html += `<li class="${estado}">
-      ${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}
-    </li>`;
+        html += `<li class="${estado}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
     }
 
     html += "</ul>";
@@ -26,7 +24,7 @@ export function renderMenu() {
     output.innerHTML = html;
 }
 
-export function renderLista(titulo, listaTextos) {
+function renderLista(titulo, listaTextos) {
     const output = document.getElementById("output");
     let html = `<h3>${titulo}</h3><ul>`;
     for (let i = 0; i < listaTextos.length; i++) {
@@ -36,9 +34,13 @@ export function renderLista(titulo, listaTextos) {
     output.innerHTML = html;
 }
 
-export function mostrarMensaje(texto, tipo = "") {
+function mostrarMensaje(texto, clase = "") {
     const output = document.getElementById("output");
-    output.innerHTML = `<p class="mensaje-${tipo}">${texto}</p>`;
+    const p = document.createElement("p");
+    if (clase) p.className = clase;
+    p.textContent = texto;
+    output.innerHTML = ""; // Limpiar antes
+    output.appendChild(p);
 }
 
 export function conectarEventos() {
@@ -48,29 +50,27 @@ export function conectarEventos() {
     const btnStockBajo = document.getElementById("btnStockBajo");
     const btnResumen = document.getElementById("btnResumen");
     const btnVender = document.getElementById("btnVender");
+    
     const inputBuscar = document.getElementById("inputBuscar");
     const inputVenderNombre = document.getElementById("inputVenderNombre");
     const inputVenderCantidad = document.getElementById("inputVenderCantidad");
 
-    if (btnMostrar) btnMostrar.addEventListener("click", () => {
-        renderMenu();
-    });
+    if (btnMostrar) btnMostrar.addEventListener("click", () => renderMenu());
 
     if (btnAgregar) btnAgregar.addEventListener("click", () => {
         agregarPlato({ nombre: "Pollo a la brasa", precio: 20, stock: 4 });
         renderMenu();
+        mostrarMensaje("Plato demo agregado.", "mensaje-exito");
     });
 
     if (btnBuscar) btnBuscar.addEventListener("click", () => {
         const nombre = inputBuscar.value.trim();
-        if (!nombre) return mostrarMensaje("Escribe un nombre para buscar.", "negocio");
+        if (!nombre) return mostrarMensaje("Escribe un nombre.", "mensaje-negocio");
 
         const plato = buscarPlatoPorNombre(nombre);
-        if (!plato) return mostrarMensaje("No encontrado.", "negocio");
+        if (!plato) return mostrarMensaje("No encontrado.", "mensaje-negocio");
 
-        renderLista("Resultado búsqueda", [
-            `${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}`
-        ]);
+        renderLista("Búsqueda", [`${plato.nombre} — Stock: ${plato.stock}`]);
     });
 
     if (btnStockBajo) btnStockBajo.addEventListener("click", () => {
@@ -80,45 +80,45 @@ export function conectarEventos() {
 
     if (btnResumen) btnResumen.addEventListener("click", () => {
         const lista = obtenerResumenMenu();
-        renderLista("Resumen del menú", lista);
+        renderLista("Resumen", lista);
     });
 
-    // VENDER CON TRY/CATCH - DÍA 8
-    if (btnVender) btnVender.addEventListener("click", async () => {
-        const nombre = inputVenderNombre.value.trim();
-        let cantidad = inputVenderCantidad.value.trim();
+    // Parte C y D — Manejo diferenciado y Validaciones robustas
+    if (btnVender) {
+        btnVender.addEventListener("click", async () => {
+            const nombre = inputVenderNombre.value.trim();
+            const cantidadRaw = inputVenderCantidad.value.trim();
 
-        // Validaciones preventivas
-        if (nombre === "") {
-            return mostrarMensaje("⚠️ El nombre no puede estar vacío.", "negocio");
-        }
-        if (cantidad === "" || isNaN(cantidad)) {
-            return mostrarMensaje("⚠️ La cantidad debe ser un número válido.", "negocio");
-        }
-        cantidad = Number(cantidad);
-        if (cantidad <= 0) {
-            return mostrarMensaje("⚠️ La cantidad debe ser mayor a 0.", "negocio");
-        }
-
-        const plato = buscarPlatoPorNombre(nombre);
-        if (!plato) {
-            return mostrarMensaje("⚠️ El plato no existe en el menú.", "negocio");
-        }
-        if (plato.stock < cantidad) {
-            return mostrarMensaje(`⚠️ Stock insuficiente. Solo quedan ${plato.stock}.`, "negocio");
-        }
-
-        try {
-            mostrarMensaje("⏳ Procesando pedido...", "proceso");
-            const resultado = await venderPlatoAsync(nombre, cantidad);
-            mostrarMensaje("✅ " + resultado, "exito");
-            renderMenu();
-        } catch (error) {
-            if (error.name === "ErrorNegocio") {
-                mostrarMensaje("⚠️ Advertencia: " + error.message, "negocio");
-            } else {
-                mostrarMensaje("❌ Error del sistema: " + error.message, "sistema");
+            // Parte D — Validaciones preventivas obligatorias
+            if (nombre === "") {
+                return mostrarMensaje("Advertencia: El nombre no puede estar vacío.", "mensaje-negocio");
             }
-        }
-    });
+            if (cantidadRaw === "" || isNaN(cantidadRaw)) {
+                return mostrarMensaje("Advertencia: La cantidad debe ser un número.", "mensaje-negocio");
+            }
+            const cantidad = parseInt(cantidadRaw);
+            if (cantidad <= 0) {
+                return mostrarMensaje("Advertencia: La cantidad debe ser mayor a 0.", "mensaje-negocio");
+            }
+
+            try {
+                mostrarMensaje("Procesando pedido...", "mensaje-proceso");
+                
+                // Llamada a operaciones
+                const mensaje = await venderPlatoAsync(nombre, cantidad);
+
+                mostrarMensaje(mensaje, "mensaje-exito");
+                renderMenu();
+            } catch (error) {
+                // Parte C — Manejo diferenciado
+                if (error.name === "ErrorNegocio") {
+                    mostrarMensaje("Advertencia: " + error.message, "mensaje-negocio");
+                } else {
+                    mostrarMensaje("Error del sistema: " + error.message, "mensaje-sistema");
+                }
+            }
+        });
+    }
 }
+
+export { renderMenu };

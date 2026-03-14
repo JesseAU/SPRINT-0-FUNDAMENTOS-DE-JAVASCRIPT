@@ -1,4 +1,7 @@
 import { conectarEventos, renderMenu } from "./ui.js";
 
-conectarEventos();
-renderMenu();
+// Inicialización del Día 8
+document.addEventListener("DOMContentLoaded", () => {
+    conectarEventos();
+    renderMenu();
+});
