@@ -8,13 +8,3 @@ export let menu = [
 export function agregarPlato(plato) {
     menu.push(plato);
 }
-
-export function actualizarStock(nombre, nuevoStock) {
-    for (let i = 0; i < menu.length; i++) {
-        if (menu[i].nombre.toLowerCase() === nombre.toLowerCase()) {
-            menu[i].stock = nuevoStock;
-            return true;
-        }
-    }
-    return false;
-}
