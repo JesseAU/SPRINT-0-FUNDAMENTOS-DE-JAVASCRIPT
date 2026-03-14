@@ -1,5 +1,6 @@
 import { menu } from "./menu.js";
 
+// Parte A — Crear clase de error personalizada
 export class ErrorNegocio extends Error {
     constructor(mensaje) {
         super(mensaje);
@@ -39,7 +40,6 @@ export function verificarEstadoGeneral() {
     return "Todo disponible";
 }
 
-// SIMULACIÓN DE SERVIDOR
 export function simularRespuestaServidor(resultado) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -53,34 +53,29 @@ export function simularRespuestaServidor(resultado) {
     });
 }
 
-// VENTA ASINCRÓNICA CON MANEJO DE ERRORES - DÍA 8
+// Parte B — Modificar venderPlatoAsync (Refactorizado con throw)
 export async function venderPlatoAsync(nombre, cantidad) {
-    if (!nombre || nombre.trim() === "") {
-        throw new ErrorNegocio("El nombre del plato no puede estar vacío.");
-    }
-    if (isNaN(cantidad) || cantidad <= 0) {
-        throw new ErrorNegocio("La cantidad debe ser un número mayor a 0.");
-    }
-
     const plato = buscarPlatoPorNombre(nombre);
 
     if (!plato) {
-        throw new ErrorNegocio("Plato no encontrado: " + nombre);
+        throw new ErrorNegocio("El plato no existe en el menú: " + nombre);
     }
     if (plato.stock === 0) {
-        throw new ErrorNegocio("Plato agotado: " + plato.nombre);
+        throw new ErrorNegocio("El plato está agotado: " + plato.nombre);
+    }
+    if (cantidad <= 0) {
+        throw new ErrorNegocio("La cantidad debe ser mayor a 0.");
     }
     if (plato.stock < cantidad) {
         throw new ErrorNegocio(`Stock insuficiente. Disponible: ${plato.stock}`);
     }
 
-    // No modificamos el stock aún, simulamos la respuesta primero
-    const mensajeVenta = `Venta exitosa: ${plato.nombre} x${cantidad}`;
+    // Parte E — Estado consistente: el stock solo baja si la simulación es exitosa (o según requisito del día)
+    // El syllabus dice "No debe modificarse el stock si ocurre error".
+    // Esperamos la respuesta del servidor antes de descontar.
+    const mensajeVenta = `Venta realizada: ${plato.nombre} x${cantidad}`;
+    const respuesta = await simularRespuestaServidor(mensajeVenta);
     
-    // Esperamos la respuesta del "servidor"
-    await simularRespuestaServidor(mensajeVenta);
-
-    // Solo si el servidor no falla, descontamos stock
-    plato.stock -= cantidad;
-    return mensajeVenta;
+    plato.stock -= cantidad; 
+    return respuesta;
 }
