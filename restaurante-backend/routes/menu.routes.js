@@ -1,7 +1,7 @@
-// routes/menu.routes.js
 const express = require('express');
 const router = express.Router();
 const menuController = require('../controllers/menu.controller');
+const verifyToken = require('../middlewares/verifyToken');
 
 // Middleware de validación para el POST
 const verificarDatosPlato = (req, res, next) => {
@@ -27,13 +27,13 @@ router.get('/', menuController.obtenerMenu);
 // GET /menu/:id
 router.get('/:id', menuController.buscarPlato);
 
-// POST /menu
-router.post('/', verificarDatosPlato, menuController.agregarPlato);
+// POST /menu (Ruta protegida)
+router.post('/', verifyToken, verificarDatosPlato, menuController.agregarPlato);
 
-// DELETE /menu/:id
-router.delete('/:id', menuController.eliminarPlato);
+// DELETE /menu/:id (Ruta protegida)
+router.delete('/:id', verifyToken, menuController.eliminarPlato);
 
-// PUT /menu/:id
-router.put('/:id', menuController.actualizarPlato);
+// PUT /menu/:id (Ruta protegida)
+router.put('/:id', verifyToken, menuController.actualizarPlato);
 
 module.exports = router;
