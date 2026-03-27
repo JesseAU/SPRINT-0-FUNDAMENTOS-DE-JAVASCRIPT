@@ -1,0 +1,6 @@
+EVALUADOR: IA (Antigravity)
+EVALUADO: Zaidu
+ESCENARIO ELEGIDO: 3 (Explícame qué hace exactamente nodemon. ¿Por qué no lo instalamos como dependencia normal sino como devDependency?)
+RESUMEN DE LA RESPUESTA: Nodemon es una herramienta que monitorea cambios en los archivos y reinicia el servidor automáticamente. Se instala como devDependency porque solo es útil durante la etapa de desarrollo; en producción, el servidor debe ser estable y no reiniciarse por cambios accidentales de código.
+QUÉ ENTENDIÓ BIEN: La distinción clara entre herramientas de desarrollo y de producción.
+QUÉ NECESITA REPASAR: Recordar siempre configurar el script "dev" en el package.json para invocarlo correctamente.

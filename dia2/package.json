@@ -1,0 +1,13 @@
+{
+  "name": "restaurante-backend-dia2",
+  "version": "1.0.0",
+  "description": "Día 2 - Servidor HTTP nativo en Node.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}

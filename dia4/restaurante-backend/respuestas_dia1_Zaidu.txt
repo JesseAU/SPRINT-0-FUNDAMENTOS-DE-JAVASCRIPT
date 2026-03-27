@@ -1,0 +1,15 @@
+1. ¿Qué diferencia hay entre ejecutar JavaScript en el navegador y ejecutarlo con Node.js?
+   - En el navegador tenemos acceso al DOM (document, window) para interactuar con la interfaz visual, mientras que en Node.js no existe el DOM, pero tenemos acceso al sistema de archivos, red y procesos del sistema operativo.
+   - El navegador está limitado por un "sandbox" de seguridad para proteger al usuario, mientras que Node.js tiene permisos de ejecución completa en la máquina donde corre.
+
+2. ¿Para qué sirve package.json? ¿Qué información tiene que no tenía tu proyecto del Sprint 0?
+   - Sirve como el "manifiesto" del proyecto, gestionando dependencias, metadatos (nombre, versión) y scripts de automatización. 
+   - A diferencia del Sprint 0, tiene secciones como "dependencies", "devDependencies" y "scripts" que permiten estandarizar cómo se construye y ejecuta la app.
+
+3. ¿Por qué node_modules no se sube a GitHub? ¿Cómo hace otra persona para recuperar esas dependencias?
+   - No se sube porque es muy pesado y contiene archivos específicos del sistema operativo que pueden variar.
+   - Otra persona simplemente ejecuta `npm install` y Node usa el `package.json` para descargar exactamente las mismas versiones de las librerías necesarias.
+
+4. ¿Qué hace nodemon exactamente? ¿Por qué se instala con --save-dev y no como dependencia normal?
+   - Nodemon vigila los archivos del proyecto y reinicia el proceso de Node cada vez que guardamos un cambio, ahorrando tiempo manual.
+   - Se instala con `--save-dev` porque es una herramienta que ayuda al programador, pero no es necesaria para que el usuario final use la aplicación en un entorno real de producción.

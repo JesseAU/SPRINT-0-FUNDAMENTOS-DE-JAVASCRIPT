@@ -1,0 +1,21 @@
+{
+  "name": "restaurante-backend",
+  "version": "1.0.0",
+  "description": "Backend del sistema de restaurante",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.3.1"
+  }
+}
