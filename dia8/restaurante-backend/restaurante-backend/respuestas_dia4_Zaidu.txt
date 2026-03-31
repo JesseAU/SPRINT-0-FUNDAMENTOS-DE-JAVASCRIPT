@@ -1,0 +1,13 @@
+1. ¿Qué problema resuelve MongoDB que el array en memoria no podía resolver? Usa un ejemplo concreto del restaurante.
+Respuesta: Resuelve el problema de la falta de persistencia de datos. Si guardábamos un "Ceviche" en el array en memoria, al reiniciar o detener el servidor, ese plato se evaporaba y se perdía para siempre. Al usar MongoDB, los datos (el "Ceviche") se escriben en disco de manera permanente y están ahí aunque se reinicie la computadora entera.
+
+2. Explica el flujo completo de un POST /menu: desde que el cliente envía la petición hasta que el dato queda guardado en MongoDB. Menciona cada archivo que participa.
+Respuesta: 
+1. El cliente envía la petición POST -> 2. El Router (`routes/menu.routes.js`) la atrapa y ejecuta su middleware de validación -> 3. Pasa al Controlador (`controllers/menu.controller.js`), quien saca el `req.body` y llama al Service -> 4. El Service (`services/plato.service.js`) instancia el Modelo (`models/plato.model.js`) dictado por el Schema y ejecuta el `.save()` -> 5. MongoDB guarda el documento y el Service le devuelve la promesa resulta al Controlador para que envíe la respuesta 201 de éxito.
+
+3. ¿Para qué sirve { new: true } en findByIdAndUpdate? ¿Qué pasaría en el cliente si no lo pusieras?
+Respuesta: Este parámetro le indica a Mongoose que nos debe retornar el documento YA modificado en lugar del original. Si no lo ponemos, el documento se modificaría correctamente en la base de datos, pero a nosotros (y por ende al cliente) nos regresaría la versión "vieja" o desactualizada del plato, lo cual resultaría muy confuso visualmente.
+
+4. ¿Qué es un Schema de Mongoose y qué ventaja tiene sobre guardar cualquier objeto directamente en MongoDB?
+Respuesta: Es una plantilla o "molde" estricto que define la estructura o la forma que deben tener los documentos de una colección particular (ej. cada Plato). Su inmensa ventaja es que proporciona validaciones a nivel de datos y un seguro de vida a nuestro backend; así evitamos guardar documentos "basura" (ej: Platos sin nombre, con precios gratis, o con valores que no sirven para nuestro negocio lógico).
+ 

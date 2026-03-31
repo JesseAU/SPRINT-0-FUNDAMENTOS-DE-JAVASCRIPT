@@ -1,0 +1,40 @@
+# DIAGNÓSTICO DE BUGS - DÍA 8
+
+---
+
+## BUG 1 - Seguridad (routes/menu.routes.js)
+**¿Dónde está el bug?**
+En la línea `router.post('/', menuController.agregarPlato);` falta el middleware `verifyToken`.
+
+**¿Qué consecuencia tiene en el sistema?**
+Cualquier usuario o bot puede crear platos en el menú sin estar autenticado. Esto compromete totalmente la integridad de la base de datos del restaurante.
+
+**¿Cuál es la corrección?**
+Añadir `verifyToken` antes de las validaciones y el controlador:
+`router.post('/', verifyToken, verificarDatosPlato, menuController.agregarPlato);`
+
+---
+
+## BUG 2 - Configuración (database/connection.js)
+**¿Dónde está el bug?**
+Se intenta usar `process.env.MONGO_URI` directamente en lugar de usar el objeto `mongoUri` importado desde `../config`.
+
+**¿Cuándo falla exactamente?**
+Falla si la conexión se intenta realizar antes de que `dotenv.config()` (que está dentro de `config/index.js`) termine de cargar las variables de entorno, o simplemente ignora la centralización de configuración que ya habíamos definido para el proyecto.
+
+**¿Cuál es la corrección?**
+Eliminar la asignación manual de `process.env` y usar la constante importada:
+`await mongoose.connect(mongoUri);`
+
+---
+
+## BUG 3 - Lógica (services/plato.service.js)
+**¿Dónde está el bug?**
+El método `findByIdAndUpdate` no está recibiendo el objeto de opciones `{ new: true }`.
+
+**¿Qué ve el cliente que no debería ver?**
+Mongoose, por defecto, devuelve el documento tal como estaba **antes** de la actualización. El cliente recibirá los datos viejos en la respuesta JSON, lo que genera confusión aunque la base de datos se haya actualizado correctamente.
+
+**¿Cuál es la corrección?**
+Añadir `{ new: true }` como tercer parámetro:
+`return await Plato.findByIdAndUpdate(id, data, { new: true });`
