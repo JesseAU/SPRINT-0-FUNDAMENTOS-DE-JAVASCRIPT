@@ -1,0 +1,16 @@
+1. Un desarrollador hardcodea la URL de MongoDB y el JWT_SECRET directamente en el código y sube el proyecto a GitHub público. Describe al menos tres consecuencias concretas de ese error y cómo las variables de entorno las previenen.
+
+Respuesta:
+Si un desarrollador sube credenciales quemadas a un repo público, se exponen a tres grandes riesgos inmediatos:
+- **Robo y borrado de la Base de Datos**: Cualquiera puede conectarse mediante la URL de MongoDB, robar información de usuarios y luego borrar las colecciones (un ataque muy común).
+- **Falsificación de Identidad (JWT)**: Al tener la clave secreta (JWT_SECRET), cualquier usuario puede crear sus propios tokens y hacerse pasar por administrador para interactuar con la API maliciosamente.
+- **Incapacidad de tener entornos distribuidos**: Si el código depende de un valor quemado, el proyecto requiere editar el código manualmente cada vez que pasa de la máquina de un desarrollador (Localhost) a una de Producción (Servidor Real), volviendo el desarrollo una pesadilla.
+
+Las variables de entorno solucionan esto moviendo estos secretos afuera del código, leyendo archivos como `.env` que por diseño son restringidos, secretos y estrictamente ignorados de repositorios públicos mediante `.gitignore`.
+
+
+2. Explica con tus propias palabras por qué config/index.js existe. ¿Qué pasaría si cada archivo usara process.env directamente y el nombre de una variable cambiara?
+
+Respuesta:
+El archivo `config/index.js` existe como un "punto único de verdad" para todas las configuraciones secretas. Si cada parte del programa usara `process.env.JWT_SECRET` individualmente (unas 10 veces a lo largo del proyecto, por ejemplo) y un día cambiamos su nombre a `SECRET_AUTHORIZATION_KEY` en el `.env`, tendríamos que cazar y renombrar esa variable en esos 10 rincones de la aplicación.
+Tener un index de configuración hace que el framework de las variables cargue una única vez; si el nombre de una variable externa cambia, solo actualizamos el `config/index.js` y el resto de la App seguirá funcionando porque internamente usan la misma propiedad.

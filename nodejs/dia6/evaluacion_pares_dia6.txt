@@ -1,0 +1,6 @@
+EVALUADOR: Zaidu
+EVALUADO: GPT-4o
+ESCENARIO ELEGIDO: El repositorio del restaurante es público por error. ¿Qué información está expuesta si .env llegó a GitHub? ¿Qué deben hacer inmediatamente para mitigar el daño?
+RESUMEN DE LA RESPUESTA: Si `.env` llega a GitHub, están expuestas la URI real de MongoDB y la clave secreta de JWT, permitiendo a atacantes robar data de la DB o falsificar tokens de administrador. Para mitigar, debemos rotar inmediatamente (cambiar) la clave secreta y la contraseña de la base de datos, además de eliminar el archivo `.env` del historial de Git.
+QUÉ ENTENDIÓ BIEN: Comprendió perfectamente el riesgo de exponer las credenciales de base de datos y la firma de JWT.
+QUÉ NECESITA REPASAR: Recordar que eliminar de Git no basta si la clave no se cambia de inmediato.

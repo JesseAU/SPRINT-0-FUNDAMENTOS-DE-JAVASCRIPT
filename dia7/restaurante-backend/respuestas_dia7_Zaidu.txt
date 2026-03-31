@@ -1,0 +1,12 @@
+1. Un compañero dice: 'los tests son una pérdida de tiempo porque yo ya probé manualmente que funciona'. ¿Qué le responderías? Da al menos dos razones concretas basadas en lo que construyeron hoy.
+
+Respuesta:
+Diferiría totalmente. Los tests no son para el momento en el que el código está en tu cabeza, sino para el futuro.
+Razón 1: **Detección de regresiones**. Hoy vimos que si cambiamos algo en un controlador (como el código de estado), el test falla enseguida. Manualmente, tendrías que volver a probar cada una de las 10 o 20 rutas cada vez que haces un cambio mínimo para estar seguro.
+Razón 2: **Documentación viva**. Los tests sirven para que un nuevo desarrollador lea qué se espera que devuelva cada ruta sin tener que adivinar o leer todo el código fuente.
+
+2. Explica la diferencia entre assert.equal y assert.strictEqual usando el error intencional que encontraron hoy. ¿Por qué strictEqual es más seguro?
+
+Respuesta:
+`assert.equal` utiliza el operador de igualdad débil `==`, que ignora el tipo de dato. Por ejemplo, `200 == '200'` es verdadero. Esto puede ocultar errores donde una función devuelve un string cuando se esperaba un número.
+`assert.strictEqual` utiliza el operador de identidad estricta `===`, que compara valor y tipo. Por ejemplo, `200 === '200'` es falso. Es mucho más seguro porque nos obliga a ser precisos con los tipos de datos que nuestra API devuelve, evitando comportamientos inesperados en el frontend.

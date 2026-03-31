@@ -1,4 +1,4 @@
-EVALUADOR: [Nombre de tu compañero]
+EVALUADOR: Carlos Polín
 EVALUADO: Zaidu
 ESCENARIO ELEGIDO: Explicar por qué el body del POST llega en partes y no de una sola vez.
 RESUMEN DE LA RESPUESTA: El cuerpo de una petición POST puede ser muy grande, por lo que Node.js lo maneja mediante "streams" de datos. Estos datos llegan en fragmentos llamados "chunks" a través del evento 'data'. Una vez que se reciben todos, se dispara el evento 'end', donde podemos parsear el cuerpo completo.

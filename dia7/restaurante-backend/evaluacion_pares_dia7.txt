@@ -1,0 +1,6 @@
+EVALUADOR: Zaidu
+EVALUADO: GPT-4o
+ESCENARIO ELEGIDO: Explica qué pasa línea por línea cuando corremos npm test. ¿Qué hace supertest internamente? ¿Necesita que el servidor esté corriendo en un puerto?
+RESUMEN DE LA RESPUESTA: Cuando corremos `npm test`, se ejecuta el comando `node --test` que busca los archivos en la carpeta `test/`. Cada archivo se carga y ejecuta sus bloques `describe` y `test`. Internamente, `supertest(app)` toma la instancia de Express y, si no está escuchando, arranca el servidor en un puerto efímero (temporal) automático para realizar la petición HTTP completa y luego lo cierra. No necesita que nosotros hayamos ejecutado `node app.js` manualmente antes.
+QUÉ ENTENDIÓ BIEN: Comprendió que supertest levanta la app de forma aislada y automatizada.
+QUÉ NECESITA REPASAR: Recordar que es importante cerrar las conexiones de base de datos después de los tests para que el proceso termine limpiamente.
