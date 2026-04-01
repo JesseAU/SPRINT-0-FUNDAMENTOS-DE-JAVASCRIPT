@@ -1,5 +1,5 @@
 EVALUADOR: Zaidu
-EVALUADO: Compañero
+EVALUADO: Carlos Polín
 ESCENARIO ELEGIDO: Escenario 1 (Dónde vive la lógica que antes era menu.push)
 RESUMEN DE LA RESPUESTA: La lógica se movió hacia `services/plato.service.js` en el método `crear()`. Se hace esto por la arquitectura MVC / Service Layer: el controlador solo debe encargarse de las peticiones HTTP (req, res), y el Service debe encargarse de la lógica de negocio y de hablar con la base de datos (MongoDB).
 
