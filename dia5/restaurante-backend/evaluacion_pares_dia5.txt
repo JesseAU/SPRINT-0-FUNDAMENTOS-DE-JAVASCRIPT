@@ -1,7 +1,0 @@
-EVALUADOR: Zaidu
-EVALUADO: Carlos Polín
-ESCENARIO ELEGIDO: Escenario 3 (¿Por qué verifyToken llama a next() al final y no al principio?)
-RESUMEN DE LA RESPUESTA: Se llama a `next()` al final porque el middleware primero debe extraer el token, verificar su firma y decodificar los datos del usuario. Si hiciera `next()` al principio, dejaría pasar la petición hacia el controlador sin siquiera validar el token, arruinando por completo la seguridad de la ruta. Si el token es inválido, el `catch` atrapa el error y corta la petición devolviendo un 401.
-
-QUÉ ENTENDIÓ BIEN: Comprendió perfectamente el flujo de ejecución sincrónico de los middlewares y cómo interceptan la petición antes de llegar al router final.
-QUÉ NECESITA REPASAR: Nada, respuesta impecable.
