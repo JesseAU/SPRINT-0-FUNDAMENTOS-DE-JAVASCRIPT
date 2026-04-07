@@ -32,7 +32,7 @@ exports.agregarPlato = async (req, res) => {
         if (!nombre || !precio) {
             return res.status(400).json({ error: 'nombre y precio son obligatorios' });
         }
-        
+
         const nuevo = await platoService.crear(req.body);
         res.status(201).json({ mensaje: 'Plato creado', plato: nuevo });
     } catch (error) {
