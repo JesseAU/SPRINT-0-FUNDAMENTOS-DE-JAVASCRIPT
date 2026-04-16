@@ -1,0 +1,23 @@
+1. ¿Qué problema concreto resuelve TypeScript que JavaScript no resuelve? Usa un ejemplo del restaurante que construyeron, no uno genérico.
+
+Respuesta:
+TypeScript evita los errores relacionados con los tipos de datos en la etapa de desarrollo "antes" de que el código llegue a producción. En JavaScript puro, si envío por error un Plato con `precio: "veinte"`, Node y JavaScript no me avisan del fallo hasta que inserto el objeto a la base de datos (y luego alguien intenta sumar precios y se rompe todo). Con TypeScript, al estar marcado el precio claramente como un `number` en la interface, el editor me subrayará "veinte" en rojo en tiempo real, previniendo inyecciones de mala data desde la raíz.
+
+2. En el proyecto Node.js tienen models/Plato.js con un schema de Mongoose. Hoy crearon una interface Plato en TypeScript. ¿Por qué necesitan las dos? ¿No hacen lo mismo?
+
+Respuesta:
+No hacen lo mismo y una no reemplaza a la otra. El schema de mongoose de `models/Plato.js` es la protección y validación de los datos específicamente cuando intentan guardarse EN MONGODB (es decir, en el motor de Base de Datos). Mientras tanto, la Interface `Plato` es para tener el tipado durante TODA la ejecución del código en nuestro archivo; es un mecanismo del lenguaje (para nosotros los desarrolladores en tiempo de escritura).
+
+3. ¿Qué diferencia hay entre Plato y CreatePlatoDto? ¿Por qué el cliente no envía _id cuando crea un plato nuevo?
+
+Respuesta:
+`CreatePlatoDto` es solo un puente, es decir, el Data Transfer Object o formato del cuerpo que esperamos recibir cuando el Postman (cliente) le pega al nuestro POST /menu (nombre, categoria, precio y stock).
+Por otro lado, `Plato` representa la entidad "Plato lista y terminada" en base de datos.
+El cliente no tiene por qué enviarnos el `_id` porque eso es una responsabilidad de MongoDB al crear el registro, ni tampoco la bandera de `disponible` porque eso la calculamos automáticamente en base al stock entrante. De ahí la separación en dos DTO/Interfaces distintos.
+
+4. Si mañana agregan una entidad Pedido con campos mesa, items y total, ¿qué crearían primero antes de tocar cualquier archivo del proyecto? Describe los pasos sin escribir código.
+
+Respuesta:
+1. En TypeScript crearíamos las interfaces en nuestro `restaurante.types.ts`: La interface `Pedido` con todos los campos finales, el `CreatePedidoDto` sin el '_id', y quizá enums para estados del pedido (ej. 'En_preparacion', 'Entregado').
+2. Luego nos iríamos a crear el archivo del modelo `models/Pedido.js` de Mongoose para que acepte esos mismos tipos a nivel Base de Datos.
+3. Lo siguiente sería crear el `services/pedido.service.js` para las reglas de negocio, luego el `controllers/pedido.controller.js` y, por último, enganchar las rutas web en `routes/pedido.routes.js`. Todo siempre respetando la firma de nuestra hermosa nueva DTO.

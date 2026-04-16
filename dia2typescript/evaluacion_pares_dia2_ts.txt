@@ -1,0 +1,9 @@
+Tarjeta de evaluación - Día 2
+EVALUADOR: Carlos Polín
+EVALUADO: Zaid Uriarte
+ESCENARIO ELEGIDO: 2
+RESUMEN DE LA RESPUESTA: 
+Zaid explicó que necesitamos AuthRequest porque la interface Request estándar de Express no incluye la propiedad 'user'. Al extenderla, permitimos que TypeScript reconozca req.user después de que el middleware verifyToken inyecte el payload del JWT. Esto resuelve el error de "Property 'user' does not exist on type 'Request'" y permite acceder de forma segura a los datos del usuario en los controladores.
+
+QUÉ ENTENDIÓ BIEN: Comprendió perfectamente el concepto de extensión de interfaces para adaptar tipos de librerías externas a las necesidades del proyecto.
+QUÉ NECESITA REPASAR: Seguir practicando el uso de tipos opcionales (?) cuando un campo puede no estar presente en ciertos momentos del ciclo de vida del request.

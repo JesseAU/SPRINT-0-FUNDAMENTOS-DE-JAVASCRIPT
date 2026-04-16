@@ -1,0 +1,13 @@
+Documento de cierre - Día 2
+Nombre: Zaid Uriarte
+
+1. El problema que resuelve tipar el body con CreatePlatoDto es la falta de validación en tiempo de desarrollo. En Node.js podíamos enviar cualquier campo y el editor no nos avisaba si faltaba algo o si había un error tipográfico. Con TypeScript, si intentamos usar req.body.precioo (con doble 'o'), el compilador nos dará un error inmediato, evitando bugs que antes solo veríamos al ejecutar la app.
+
+2. buscarPorId() devuelve Promise<Plato | null> porque es posible que el ID no exista en la base de datos. TypeScript nos obliga a realizar una comprobación (if (!plato)) en el controller. Si no lo hiciéramos e intentáramos acceder a plato.nombre, TypeScript nos daría un error de "Object is possibly 'null'", garantizando que nuestra aplicación sea más robusta contra errores de nulidad.
+
+3. La diferencia es la asincronía. 'void' indica que la función termina su ejecución de forma inmediata y síncrona (como verifyToken que solo llama a next()). 'Promise<void>' indica que la función es asíncrona (async) y que, aunque no devuelva un valor final, debemos esperar a que terminen sus procesos internos (como las consultas a la DB en los controllers).
+
+4. Flujo para GET /menu/categoria/:cat:
+   - En src/services/plato.service.ts: Agregar el método buscarPorCategoria(cat: string): Promise<Plato[]>.
+   - En src/controllers/menu.controller.ts: Crear la función filtrarPorCategoria tipando los params como Request<{ cat: string }>.
+   - En las rutas: Vincular la nueva ruta con el controlador tipado.

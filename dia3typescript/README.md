@@ -1,1 +1,1 @@
-# Día 3: Interfaces y Clases
+# Día 1: Introducción a TypeScript

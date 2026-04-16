@@ -1,1 +1,1 @@
-# Día 2: Tipado Avanzado y Funciones
+# Día 1: Introducción a TypeScript
