@@ -1,6 +1,0 @@
-EVALUADOR: Carlos Polín
-EVALUADO: Zaidu
-ESCENARIO ELEGIDO: 2 - Diferencia entre Plato y CreatePlatoDto. ¿Por qué son dos interfaces distintas si representan el mismo plato? ¿Qué pasaría si usaran solo Plato para los dos casos?
-RESUMEN DE LA RESPUESTA: Zaidu explicó claramente que la interface 'Plato' representa a la entidad completa tal cual vive en la base de datos (incluyendo el _id y el booleano 'disponible'), mientras que 'CreatePlatoDto' representa únicamente la información que el cliente envía al momento de crear el plato por HTTP. Si usáramos solo la interface 'Plato' en ambos casos, TypeScript nos arrojaría un error obligando al cliente a mandar el '_id' al momento de crear, lo cual no tiene sentido porque eso lo genera MongoDB automáticamente.
-QUÉ ENTENDIÓ BIEN: Entendió a la perfección la separación de responsabilidades entre los DTOs (Data Transfer Objects) y los modelos completos.
-QUÉ NECESITA REPASAR: Quizás explorar un poco cómo usar Mapeos de Tipos avanzados (como Pick u Omit) en lugar de duplicar código en el futuro.
