@@ -1,6 +1,0 @@
-EVALUADOR: Zaidu
-EVALUADO: Carlos Polín
-ESCENARIO ELEGIDO: Traza el flujo completo de GET /menu/categoria/Segundos desde que llega la petición hasta que sale la respuesta. Menciona cada archivo que participa.
-RESUMEN DE LA RESPUESTA: La petición llega a `app.js`, que la deriva al router de menú en `routes/menu.routes.js`. El router identifica la ruta `/categoria/:categoria` y llama a `menuController.filtrarPorCategoria` en `controllers/menu.controller.js`. El controlador extrae el parámetro `categoria` de la URL y llama al servicio `platoService.buscarPorCategoria(categoria)` en `services/plato.service.js`. El servicio realiza una consulta `Plato.find({ categoria })` usando el modelo en `models/plato.model.js` para comunicarse con MongoDB. Finalmente, el resultado vuelve por la cadena hasta que el controlador responde con un JSON y status 200.
-QUÉ ENTENDIÓ BIEN: Explicó correctamente la delegación de responsabilidades entre el router, el controlador y el servicio.
-QUÉ NECESITA REPASAR: Recordar que la base de datos se conecta una sola vez al inicio en `connection.js` para que todo el flujo funcione.
