@@ -1,0 +1,16 @@
+🟢 NESTJS — SPRINT 5 - DÍA 2
+NOTAS DEL DÍA + FEEDBACK - Zaidu
+
+PREDICCIONES:
+- Bloque A: Aprenderé a separar la lógica del controlador usando servicios inyectables para mejor organización.
+- Bloque B: Conectaremos la aplicación a una base de datos real (MongoDB) usando variables de entorno seguras.
+- Bloque C: Definiremos la estructura de los platos usando esquemas y decoradores de Mongoose.
+- Bloque D: Implementaremos todas las operaciones CRUD para que los platos se guarden y consulten de verdad.
+
+FEEDBACK:
+- SeccionA: Fue muy interesante entender el concepto de @Injectable y cómo Nest gestiona las instancias.
+- SeccionB: Configurar el AppModule con ConfigModule y MongooseModule es directo y muy profesional.
+- SeccionC: Los esquemas de Mongoose con decoradores hacen que el código sea muy legible y tipado.
+- SeccionD: Implementar el CRUD completo delegando al servicio hizo que el código del controlador quedara mucho más limpio.
+- SeccionE: La evaluación entre pares fue clave para resolver dudas sobre la conexión a la base de datos.
+- SeccionF: Reflexionar sobre la separación de responsabilidades chef/mesero ayuda a ver el beneficio de NestJS frente a Express puro.

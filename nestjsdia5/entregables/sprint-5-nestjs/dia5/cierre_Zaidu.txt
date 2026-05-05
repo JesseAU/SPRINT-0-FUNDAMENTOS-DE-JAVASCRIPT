@@ -1,0 +1,7 @@
+# PREGUNTA 1
+La ventaja de NestJS con Passport y Guards es que centraliza la lógica de validación del token en una sola "Estrategia" (JwtStrategy). En Express, a menudo terminas con middlewares duplicados o difíciles de gestionar. En Nest, simplemente aplicas @UseGuards(JwtAuthGuard) y el sistema ya sabe qué hacer. Si mañana cambiamos de JWT a otra forma de autenticación, solo cambiamos la estrategia y el resto del código permanece intacto.
+
+# PREGUNTA 2
+Actualmente los datos de entrada en los cuerpos de las peticiones (@Body) no están siendo validados. Por ejemplo:
+1. En el registro, alguien podría mandar un email con formato inválido o una contraseña vacía.
+2. En el cambio de estado de una mesa, alguien podría mandar un estado que no existe en el Enum (como "limpiando"), lo que causaría inconsistencias en la base de datos o errores 500 al intentar procesar la lógica de negocio.

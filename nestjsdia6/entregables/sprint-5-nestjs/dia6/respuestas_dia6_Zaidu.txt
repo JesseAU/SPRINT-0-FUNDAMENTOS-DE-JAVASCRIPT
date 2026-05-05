@@ -1,0 +1,7 @@
+🟢 NESTJS — SPRINT 5 - DÍA 6
+NOTAS DEL DÍA + FEEDBACK - Zaidu
+
+FEEDBACK:SeccionA: Instalación de class-validator y class-transformer sin problemas. Los DTOs de Auth ayudan mucho a ver qué datos estamos esperando exactamente.
+FEEDBACK:SeccionB: Crear los DTOs para cada módulo permite centralizar las reglas de validación. Me gustó usar @IsMongoId para asegurar que los IDs de las mesas y platos sean válidos antes de que lleguen a la base de datos.
+FEEDBACK:SeccionC: El ValidationPipe con whitelist: true es genial porque limpia automáticamente cualquier basura que el usuario intente inyectar en el body.
+FEEDBACK:SeccionD: El ExceptionFilter global hace que la API se vea mucho más profesional. Ahora todos los errores tienen el mismo formato, lo cual es fundamental para que un frontend (o una IA) los procese.

@@ -1,0 +1,10 @@
+DOCUMENTO DE CIERRE - DÍA 1
+
+1. ¿Qué cambió y por qué NestJS usa decoradores?
+Lo que cambió es que pasamos de una programación imperativa (donde le decimos a Express paso a paso qué ruta escuchar y qué función llamar) a una programación declarativa. En NestJS, simplemente "etiquetamos" nuestras clases y métodos con decoradores como @Controller y @Get. NestJS hace esto porque permite una mayor consistencia y modularidad. Al usar decoradores, el framework puede inyectar comportamientos automáticos (como la validación de datos, la gestión de errores o la serialización de respuestas) sin que tengamos que escribir ese código repetitivo en cada endpoint. Esto facilita que cualquier desarrollador entienda la estructura de inmediato.
+
+2. Organización de nuevos módulos (Mesas, Pedidos, Ticket):
+- MesasModule: Se encargaría de la gestión de las mesas (disponibilidad, capacidad). Necesitaría endpoints como GET /api/mesas para ver el mapa del restaurante y PATCH /api/mesas/:id para cambiar su estado (disponible/ocupada).
+- PedidosModule: Sería el corazón del sistema, manejando la creación de comandas (POST /api/pedidos) y la actualización de los platos incluidos. Separarlo permite manejar el ciclo de vida del pedido (pendiente -> en cocina -> servido) independientemente de la mesa.
+- TicketModule: Se encargaría exclusivamente del Snapshot final y el cobro. Sería un módulo más pequeño que se dispara al finalizar un pedido (POST /api/tickets).
+- Razonamiento: Al separar estos dominios, evitamos que un solo archivo tenga miles de líneas de código y permitimos que el sistema crezca de forma ordenada, respetando la responsabilidad única de cada módulo.

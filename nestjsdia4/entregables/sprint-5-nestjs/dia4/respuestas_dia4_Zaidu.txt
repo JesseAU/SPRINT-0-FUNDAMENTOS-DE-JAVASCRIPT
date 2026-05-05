@@ -1,0 +1,13 @@
+🟢 NESTJS — SPRINT 5 - DÍA 4
+NOTAS DEL DÍA + FEEDBACK - Zaidu
+
+PREDICCIONES:
+- Bloque A: El subdocumento ItemPedido nos permitirá tener todo el pedido en un solo documento sin hacer Joins pesados, lo cual es ideal para velocidad.
+- Bloque B: La inyección de MesasService permitirá que la mesa pase a "ocupada" automáticamente, evitando que dos meseros sienten gente en la misma mesa por error.
+- Bloque C: Al usar PlatosService para obtener el precio, garantizamos que el total sea exacto según el menú vigente en ese segundo.
+
+FEEDBACK:
+- SeccionA: Definir el Schema con subdocumentos es mucho más limpio que en Express puro. NestJS organiza muy bien los tipos.
+- SeccionB: Exportar e importar módulos es un patrón un poco verboso al principio, pero evita que los servicios sean "globales" por accidente, lo que es bueno para el orden.
+- SeccionC: El uso de `reduce` para calcular el total es elegante y rápido. Usar `markModified` es clave para que Mongoose detecte cambios en el array.
+- SeccionD: La máquina de estados de pedidos es similar a la de mesas, lo que hizo que esta sección fuera muy fluida de implementar.

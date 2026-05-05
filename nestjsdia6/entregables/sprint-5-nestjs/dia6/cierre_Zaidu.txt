@@ -1,0 +1,8 @@
+# PREGUNTA 1
+Para un agente de IA, la predictibilidad es clave. 
+- Los DTOs definen el "contrato": la IA sabe exactamente qué campos enviar.
+- El ValidationPipe actúa como un "validador temprano": si la IA comete un error, el sistema lo detiene inmediatamente sin procesar basura.
+- El ExceptionFilter estandariza la respuesta: si la IA falla, recibe un error en un formato que ya conoce (con statusCode, message, timestamp y path). Esto le permite interpretar el error automáticamente y corregir su petición.
+
+# PREGUNTA 2
+Creo que la parte más probable que falle en el deploy es la conexión con MongoDB Atlas si las IPs no están autorizadas o si las variables de entorno (MONGO_URI, JWT_SECRET) no se configuran correctamente en Railway. Verificaría primero los logs de Railway para ver si la aplicación arrancó correctamente y si logró conectarse a la base de datos.

@@ -1,0 +1,21 @@
+🟢 NESTJS — SPRINT 5 - DÍA 4
+DOCUMENTO DE CIERRE - Zaidu
+
+1. Hoy un servicio llamó a otro servicio por primera vez. Describe con tus propias palabras qué problema resuelve ese patrón y qué limitaciones tiene. ¿Qué pasaría si PedidosService llamara a MesasService y MesasService llamara de vuelta a PedidosService?
+
+Respuesta:
+Este patrón resuelve el problema de la coordinación de la lógica de negocio que afecta a múltiples dominios. En un restaurante, crear un pedido no es algo aislado; afecta la disponibilidad de las mesas. La coordinación permite que los servicios sigan siendo responsables de su propia data, pero trabajen juntos para mantener la integridad del sistema (consistencia). 
+La limitación principal es el acoplamiento: ahora PedidosService depende de la interfaz de MesasService. Si MesasService llamara de vuelta a PedidosService, tendríamos una "dependencia circular". Esto es un problema grave en arquitectura de software porque NestJS no sabría cuál servicio instanciar primero, causando un error de "Circular Dependency" que bloquea el arranque de la aplicación a menos que se use `forwardRef`, lo cual debe evitarse siempre que sea posible para mantener el código limpio.
+
+2. El sistema tiene ahora tres módulos coordinados: Platos, Mesas y Pedidos. Mañana agregan autenticación con JWT. ¿Qué endpoints de los que construyeron crees que deberían estar protegidos y cuáles podrían ser públicos? Justifica cada decisión.
+
+Respuesta:
+- Públicos: 
+    * `GET /api/platos`: Los clientes deberían poder ver el menú sin necesidad de loguearse.
+- Protegidos (Solo personal):
+    * `POST/PATCH/DELETE /api/platos`: Solo los administradores o chefs deben poder cambiar el menú.
+    * `POST/PATCH /api/pedidos`: Solo los meseros deben poder crear pedidos o añadir items.
+    * `PATCH /api/mesas/:id/estado`: Solo el personal debe marcar una mesa como ocupada o fuera de servicio.
+    * `GET /api/pedidos`: Es información privada del negocio.
+    * `POST/PATCH /api/mesas`: El administrador debe gestionar la infraestructura física del local.
+    Justificación: La mayoría del sistema es operativo y debe estar restringido al personal autorizado para evitar sabotajes, pedidos falsos o acceso a datos sensibles de ventas.

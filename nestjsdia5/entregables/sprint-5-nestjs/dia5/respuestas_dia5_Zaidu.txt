@@ -1,0 +1,13 @@
+🟢 NESTJS — SPRINT 5 - DÍA 5
+NOTAS DEL DÍA + FEEDBACK - Zaidu
+
+PREDICCIONES:
+- Bloque A: Instalaremos paquetes como @nestjs/jwt y @nestjs/passport. Necesitaremos un esquema de Usuario en MongoDB para guardar las credenciales hasheadas.
+- Bloque B: El registro usará bcrypt para el hash y el login devolverá un access_token firmado por JwtService.
+- Bloque C: La estrategia JWT extraerá el token del header Bearer y el Guard protegerá los métodos POST y PATCH de pedidos y mesas.
+
+FEEDBACK:
+- SeccionA: La instalación fue sencilla, aunque tuve que tener cuidado con el orden de carga del ConfigModule para que las variables de entorno estuvieran disponibles.
+- SeccionB: Implementar el registro con el check de email duplicado (ConflictException) hace que el sistema sea mucho más robusto.
+- SeccionC: Usar registerAsync en el AuthModule fue clave para evitar errores de "secretOrPrivateKey must have a value" al cargar las variables del .env.
+- SeccionD: Ver el 401 Unauthorized en Postman al intentar crear un pedido sin token da mucha satisfacción, ¡el sistema ya es seguro!

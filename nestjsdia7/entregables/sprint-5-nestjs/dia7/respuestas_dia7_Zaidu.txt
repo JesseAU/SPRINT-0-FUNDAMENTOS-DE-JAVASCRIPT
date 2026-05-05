@@ -1,0 +1,7 @@
+🟢 NESTJS — SPRINT 5 - DÍA 7
+NOTAS DEL DÍA + FEEDBACK - Zaidu
+
+FEEDBACK:SeccionA: La coordinación entre módulos (Tickets -> Pedidos -> Mesas) fue la parte más desafiante pero la más gratificante. Ver cómo un solo endpoint cierra todo el ciclo es excelente.
+FEEDBACK:SeccionB: El DTO de tickets ayuda a prevenir errores de tipado en el método de pago, algo vital para la contabilidad del restaurante.
+FEEDBACK:SeccionC: Los tests de integración con Supertest son muy potentes. Detecté un pequeño error en el código de estado del login gracias a ellos (de 201 a 200).
+FEEDBACK:SeccionD: El deploy en Railway con NestJS es bastante directo siempre que las variables de entorno estén bien configuradas.

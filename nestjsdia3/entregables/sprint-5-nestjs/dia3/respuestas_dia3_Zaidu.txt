@@ -1,0 +1,15 @@
+🟢 NESTJS — SPRINT 5 - DÍA 3
+NOTAS DEL DÍA + FEEDBACK - Zaidu
+
+PREDICCIONES:
+- Bloque A: El CLI generó los archivos base (controller, service, module) y actualizó app.module.ts automáticamente. El campo estado será un string restringido por un Enum.
+- Bloque B: Usaré un diccionario u objeto `Record<string, string[]>` para mapear qué estados habilitan qué otros estados, facilitando validar con un `.includes()`.
+- Bloque C: En el controlador el método findAll agregará `@Query('estado') estado?: string` y le pasaremos esa variable al FIND de mongoose en el servicio.
+
+FEEDBACK:
+- SeccionA: La estructura es idéntica a la de los Platos, lo que refuerza que NestJS es súper predecible.
+- SeccionB: Crear el endpoint de cambio de estado separado simplifica proteger la data y previene de ataques en donde alguien manda un estado prohibido en un PATCH genérico a toda la entidad.
+- SeccionC: Usar los Query Params es mucho más lógico que hacer múltiples rutas de tipo `/disponibles`, `/ocupadas`.
+- SeccionD: Hice la consulta de la Máquina de Estados a Claude y aprendí que este patrón previene bugs muy graves de inconsistencia de base de datos a futuro.
+- SeccionE: Fue bueno repasar el por qué del PATCH específico. 
+- SeccionF: Estoy listo para unir todo mañana con los pedidos.

@@ -1,0 +1,5 @@
+# PREGUNTA 1
+El concepto más difícil fue la coordinación entre módulos. Entender cómo inyectar un servicio de un módulo en otro (usando exports e imports) me tomó un poco de tiempo. Lo entendí finalmente cuando vi que NestJS maneja un sistema de inyección de dependencias jerárquico y que cada módulo actúa como una caja negra que solo expone lo que explícitamente declares en "exports".
+
+# PREGUNTA 2
+Creo que lo más difícil para un agente de IA será entender el flujo de estados de un pedido (pendiente -> en_preparacion -> lista -> entregada -> cerrada). Si el agente intenta generar un ticket antes de que el pedido esté en "entregada", el sistema fallará. Para hacerlo más amigable, mejoraría la API devolviendo una lista de "acciones permitidas" en cada respuesta de pedido, para que la IA sepa qué endpoint puede llamar a continuación.

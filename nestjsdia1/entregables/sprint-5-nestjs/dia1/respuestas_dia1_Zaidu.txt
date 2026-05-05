@@ -1,0 +1,17 @@
+EXPLORACIÓN CON CLAUDE - DÍA 1
+
+1. Comparación con Express:
+   - @Controller("api/platos") es el equivalente a definir un Router y montarlo en una ruta base.
+   - @Get() reemplaza a router.get('/').
+   - El retorno directo de objetos/arrays en los métodos es equivalente a res.json() en Express, pero manejado automáticamente por NestJS.
+
+2. Status Codes:
+   - NestJS retorna 200 OK por defecto para peticiones GET. Para POST retorna 201 Created.
+   - Se puede cambiar usando el decorador @HttpCode(status).
+
+3. Cosa nueva aprendida:
+   Aprendí que NestJS utiliza el concepto de "Inyección de Dependencias" a través de los Módulos para organizar cómo se comunican las distintas partes de la aplicación, lo que hace que el código sea mucho más modular y fácil de testear que en un proyecto de Express estándar.
+
+FEEDBACK:SeccionA: Todo claro. La instalación fue fluida usando el CLI.
+FEEDBACK:SeccionB: El comando `nest g m` ahorra mucho tiempo al actualizar automáticamente el AppModule.
+FEEDBACK:SeccionC: Muy útil que el decorador @Controller acepte el prefijo de ruta completo.

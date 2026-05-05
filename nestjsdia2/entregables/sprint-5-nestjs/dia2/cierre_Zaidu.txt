@@ -1,0 +1,21 @@
+🟢 NESTJS — SPRINT 5 - DÍA 2
+DOCUMENTO DE CIERRE - Zaidu
+
+1. Hoy el controlador dejó de tener lógica — solo delega al servicio. ¿Por qué NestJS separa de esa manera? Describe con tus propias palabras qué problema resuelve esa separación. Usa un ejemplo concreto del restaurante.
+
+Respuesta:
+NestJS separa las responsabilidades (Separation of Concerns) para que el código sea más organizado, mantenible y escalable. El controlador actúa como la "cara" del API: se encarga de recibir las peticiones HTTP, validar parámetros y devolver la respuesta correcta al cliente. El servicio, en cambio, es quien contiene la "lógica de negocio" y se comunica con la base de datos.
+
+Un ejemplo concreto en el restaurante: el Controlador es el Mesero, que toma la orden del cliente y se encarga de servirle el plato cuando está listo. El Servicio es el Chef en la cocina, que no sabe quién es el cliente ni cómo llegó el pedido, pero sabe exactamente cómo cocinar los ingredientes (base de datos) para preparar el plato richiesto. Si mañana cambiamos la cocina por una más moderna, el mesero no tiene por qué cambiar su forma de trabajar.
+
+
+2. Mañana van a crear el MesasModule. Basándote en lo que hicieron hoy con Platos, describe paso a paso qué archivos crearías, en qué orden y qué haría cada uno. No escribas código — solo la estructura y el razonamiento.
+
+Respuesta:
+Para implementar el MesasModule seguiría este orden lógico:
+1. Módulo: `mesas.module.ts`. Es el contenedor que agrupa todo lo relacionado con las mesas y lo registra en el sistema.
+2. Esquema: `mesa.schema.ts`. Definiría cómo es una mesa en la base de datos (número de mesa, capacidad, estado de reserva, etc.).
+3. Registro del Esquema: Lo añadiría al `mesas.module.ts` usando `MongooseModule.forFeature` para que el modelo esté disponible.
+4. Servicio: `mesas.service.ts`. Aquí implementaría la lógica (por ejemplo, buscar mesas por capacidad o cambiar el estado de ocupado). Inyectaría el modelo de Mongoose aquí.
+5. Controlador: `mesas.controller.ts`. Definiría las rutas (GET, POST, etc.) e inyectaría el `MesasService` para delegar las operaciones.
+6. Registro en el App: Importaría el `MesasModule` en el `AppModule` para que Nest lo reconozca globalmente.

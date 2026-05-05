@@ -1,0 +1,17 @@
+🟢 NESTJS — SPRINT 5 - DÍA 3
+DOCUMENTO DE CIERRE - Zaidu
+
+1. Hoy construiste una máquina de estados para las mesas. En tus propias palabras, ¿qué problema resuelve ese patrón? ¿Qué pasaría si no existiera y cualquier campo pudiera cambiar a cualquier valor libremente? Usa el restaurante como ejemplo concreto.
+
+Respuesta:
+La máquina de estados resuelve el problema de las transiciones inválidas garantizando que el sistema siga la lógica del mundo real. 
+Si no existiera, una mesa podría pasar de "fuera_de_servicio" a "ocupada" directamente por un error del usuario o del cliente frontend de la API, saltándose el paso de estar "disponible" (y posiblemente estar limpia/reparada). En un restaurante real, saltarse esos pasos causaría caos: sentarían gente en una mesa rota, o intentarían reservar una mesa que ya está ocupada comiendo.
+
+2. Mañana crearás PedidosModule. Cuando un mesero crea un pedido para la mesa 3, ¿qué debe pasar en el sistema? Describe la secuencia de operaciones que involucran tanto PedidosService como MesasService — sin escribir código, solo el razonamiento.
+
+Respuesta:
+1. El `PedidosController` recibe la petición para crear un pedido vinculando el pedido al ID de la mesa 3.
+2. El `PedidosService` procesa esto. Primero, debería contactar al `MesasService` para verificar qué estado tiene la mesa 3.
+3. Si la mesa 3 está "disponible" o "reservada", `MesasService` ejecuta su método `cambiarEstado()` para pasarla a "ocupada".
+4. Si la mesa cambia a ocupada correctamente, el `PedidosService` guarda el nuevo pedido en la base de datos (MongoDB).
+5. Opcionalmente, el `MesasService` también actualiza el campo `pedidoActivoId` de la mesa 3 para relacionarla directamente con el pedido que se acaba de crear de manera bidireccional.
